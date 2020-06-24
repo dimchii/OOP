@@ -1,0 +1,149 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+class Avto {
+protected:
+	string Name;
+	string Marka;
+	int Losh;
+	bool Benzin;
+
+
+public:
+	Avto() {}
+
+	Avto(string N, string M, int L, bool B) {
+		this->Name = N;
+		this->Marka = M;
+		this->Losh = L;
+		this->Benzin = B;
+	}
+
+	friend ostream& operator << (ostream &cout, const Avto &avt)
+	{
+		cout << "Name: " << avt.Name << endl
+			<< "Marka: " << avt.Marka << endl
+			<< "Losh: " << avt.Losh << endl;
+		return cout;
+	}
+
+	friend istream& operator >> (istream &cin, Avto &avt)
+	{
+		cout << "Name: "; getline(cin, avt.Name);
+		cout << "Marka: "; getline(cin, avt.Name);
+		cout << "Losh: "; cin >> avt.Losh;
+		return cin;
+	}
+
+	~Avto() {}
+
+};
+
+template<class T>
+class Container {
+public:
+	Container() {}
+	void add(T b) {
+		f[k] = b;
+		k++;
+	}
+private:
+	T *f = new T[10];
+	int k = 0;
+};
+
+class Info 
+{
+protected:
+	string Nachalo, Konec;
+	float LengthM;
+
+
+public:
+	Info() {}
+
+	Info(string Nach, string Kon, float Lngt) {
+		this->Nachalo = Nach;
+		this->Konec = Kon;
+		this->LengthM = Lngt;
+	}
+
+	friend ostream& operator << (ostream &cout, const Info &inf)
+	{
+		cout << "Nachalo: " << inf.Nachalo << endl
+			<< "Konec: " << inf.Konec << endl
+			<< "Losh: " << inf.LengthM << endl;
+		return cout;
+	}
+
+	friend istream& operator >> (istream &cin, Info &inf)
+	{
+		cout << "Nachalo: "; getline(cin, inf.Nachalo);
+		cout << "Konec: "; getline(cin, inf.Konec);
+		cout << "Length: "; cin >> inf.LengthM;
+		return cin;
+	}
+
+	~Info() {}
+};
+
+class City : public Avto, public Info
+{
+public:
+	City() {}
+
+	City (string N, string M, int L, bool B, int Num, string Nach, string Kon, float Lngt):Avto(N, M, L, B), Info (Nach, Kon, Lngt)
+	{
+		
+	}
+
+	friend ostream& operator << (ostream &cout, const City &cit)
+	{
+		cout << "Name: " << cit.Name << endl
+			<< "Marka: " << cit.Marka << endl
+			<< "Losh: " << cit.Losh << endl
+			<< "Nachalo: " << cit.Nachalo << endl
+			<< "Konec: " << cit.Konec << endl
+			<< "LengthM: " << cit.LengthM << endl;
+		return cout;
+	}
+
+	friend istream& operator >> (istream &cin, City &cit)
+	{
+		cout << "Name: "; getline(cin, cit.Name);
+		cout << "Marka: "; getline(cin, cit.Name);
+		cout << "Losh: "; cin >> cit.Losh;
+		return cin;
+	}
+
+	~City() {}
+
+protected:
+	int Number;
+};
+
+
+
+int main() {
+
+	Avto Car("Oka", "BA3", 50, true), Tractor;
+	Info Raspisanie("6:30", "24:00", 6.5);
+	City Bus("Conecto", "Mercedes", 100, true, 12, "6:00", "23:00", 9);
+
+	Container <Avto> b;
+
+	Container <int> c;
+	c.add(50);
+
+	cout << Car;
+
+	b.add(Car);
+	b.add(Tractor);
+
+	cout << Bus;
+	Car.~Avto();
+	Tractor.~Avto();
+	Bus.~City();
+}
