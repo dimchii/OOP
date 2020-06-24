@@ -1,0 +1,75 @@
+#include "pch.h"
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+
+
+class Avto {
+private:
+	string Name;
+	string Marka;
+	int Losh;
+	bool Benzin;
+
+
+public:
+	Avto() {}
+
+	Avto(string N, string M, int L, bool B) {
+		this->Name = N;
+		this->Marka = M;
+		this->Losh = L;
+		this->Benzin = B;
+	}
+
+	friend ostream& operator << (ostream &cout, const Avto &avt)
+	{
+		cout << "Name: " << avt.Name << endl
+			<< "Marka: " << avt.Marka << endl
+			<< "Losh: " << avt.Losh << endl;
+		return cout;
+	}
+
+	friend istream& operator >> (istream &cin, Avto &avt)
+	{
+		cout << "Name: "; getline(cin, avt.Name);
+		cout << "Marka: "; getline(cin, avt.Name);
+		cout << "Losh: "; cin >> avt.Losh;
+		return cin;
+	}
+
+	~Avto() {}
+
+};
+
+template<class T>
+class Container {
+public:
+	Container() {}
+	void add(T b) {
+		f[k] = b;
+		k++;
+	}
+private:
+	T *f = new T[10];
+	int k = 0;
+};
+
+
+int main() {
+
+	Avto Car("Oka", "BA3", 50, true), Tractor;
+	Container <Avto> b;
+
+	Container <int> c;
+	c.add(50);
+
+	cout << Car;
+
+	b.add(Car);
+	b.add(Tractor);
+	Car.~Avto();
+	Tractor.~Avto();
+}
