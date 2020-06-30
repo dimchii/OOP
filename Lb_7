@@ -1,13 +1,10 @@
-#include "pch.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
 
-
-
 class Avto {
-private:
+protected:
 	string Name;
 	string Marka;
 	int Losh;
@@ -28,7 +25,8 @@ public:
 	{
 		cout << "Name: " << avt.Name << endl
 			<< "Marka: " << avt.Marka << endl
-			<< "Losh: " << avt.Losh << endl;
+			<< "Losh: " << avt.Losh << endl
+			<< "Benzin: " << avt.Benzin << endl;
 		return cout;
 	}
 
@@ -37,6 +35,7 @@ public:
 		cout << "Name: "; getline(cin, avt.Name);
 		cout << "Marka: "; getline(cin, avt.Name);
 		cout << "Losh: "; cin >> avt.Losh;
+		cout << "Benzin: "; cin >> cit.Benzin;
 		return cin;
 	}
 
@@ -58,9 +57,50 @@ private:
 };
 
 
+
+class City : public Avto
+{
+public:
+	City() {}
+
+	City (string N, string M, int L, bool B, int Num):Avto(N, M, L, B)
+	{
+		
+	}
+
+	friend ostream& operator << (ostream &cout, const City &cit)
+	{
+		cout << "Name: " << cit.Name << endl
+			<< "Marka: " << cit.Marka << endl
+			<< "Losh: " << cit.Losh << endl
+			<< "Benzin: " << avt.Benzin << endl
+			<< "Number: " << cit.Number << endl;
+		return cout;
+	}
+
+	friend istream& operator >> (istream &cin, City &cit)
+	{
+		cout << "Name: "; getline(cin, cit.Name);
+		cout << "Marka: "; getline(cin, cit.Name);
+		cout << "Losh: "; cin >> cit.Losh;
+		cout << "Benzin: "; cin >> cit.Benzin;
+		cout << "Number: "; cin >> cit.Number;
+		return cin;
+	}
+
+	~City() {}
+
+protected:
+	int Number;
+};
+
+
+
 int main() {
 
 	Avto Car("Oka", "BA3", 50, true), Tractor;
+	City Bus("Conecto", "Mercedes", 100, true, 12);
+
 	Container <Avto> b;
 
 	Container <int> c;
@@ -70,6 +110,9 @@ int main() {
 
 	b.add(Car);
 	b.add(Tractor);
+
+	cout << Bus;
 	Car.~Avto();
 	Tractor.~Avto();
+	Bus.~City();
 }
