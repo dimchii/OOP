@@ -21,15 +21,15 @@ public:
 		this->Benzin = B;
 	}
 
-	void output()
+	virtual void output()
 	{
 		cout << "Name: " << Name << endl
-		<< "Marka: " << Marka << endl
-		<< "Losh: " << Losh << endl
-		<< "Benzin: " << Benzin << endl;
+			<< "Marka: " << Marka << endl
+			<< "Losh: " << Losh << endl
+			<< "Benzin: " << Benzin << endl;
 	}
 
-	void input()
+	virtual void input()
 	{
 		cout << "Name: "; cin >> Name;
 		cout << "Marka: "; cin >> Marka;
@@ -41,18 +41,7 @@ public:
 
 };
 
-template<class T>
-class Container {
-public:
-	Container() {}
-	void add(T b) {
-		f[k] = b;
-		k++;
-	}
-private:
-	T *f = new T[10];
-	int k = 0;
-};
+
 
 
 
@@ -61,24 +50,24 @@ class City : public Avto
 public:
 	City() {}
 
-	City (string N, string M, int L, bool B, int Num):Avto(N, M, L, B)
+	City(string N, string M, int L, bool B, int Num) :Avto(N, M, L, B)
 	{
-		
+		Number = Num;
 	}
-	
-	void output()
+
+	void output() override
 	{
 		Avto::output();
 		cout << "Number: " << Number << endl;
 	}
 
-	void input()
+	void input() override
 	{
 		Avto::input();
 		cout << "Number: "; cin >> Number;
 	}
-	
-	
+
+
 
 	~City() {}
 
@@ -86,22 +75,41 @@ protected:
 	int Number;
 };
 
-
+template<class T>
+class Container {
+public:
+	Container() {}
+	void add(T b) {
+		f[k] = b;
+		k++;
+	}
+	T operator[] (const int index)
+	{
+		return f[index];
+	}
+private:
+	T *f = new T[10];
+	int k = 0;
+};
 
 int main() {
+
+	
+	Container <Avto*> b;
 
 	Avto Car("Oka", "BA3", 50, true), Tractor;
 	City Bus("Conecto", "Mercedes", 100, true, 12);
 
-	Container <Avto> b;
+	
 
-	Container <int> c;
-	c.add(50);
+	b.add(&Bus);
+	b[0]->output();
 
-	Car.output();
 
-	b.add(Car);
-	b.add(Tractor);
+	//Car.output();
 
-	Bus.output();
+	b.add(&Car);
+	b.add(&Tractor);
+
+	//Bus.output();
 }
